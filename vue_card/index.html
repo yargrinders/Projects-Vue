@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wrapper" id="app">
+        <header>
+            <h3>{{ Title }}</h3>
+            <div class="cart">
+                <p class="strong">({{ cart }})</p>
+            </div>
+        </header>
+        <main>
+            <div class="container product">
+                <div class="product-image">
+                    <img :src="image" />                    
+                </div>
+                <div class="product-info">
+                    <h3>{{ product }}</h3> 
+                    <p v-if="inventory > 10">In stock</p>
+                    <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+                    <p v-else>Out of stock</p>
+                    <ul>
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
+                    <div v-for="variant in variants" :key="variant.variantId" :style="{ backgroundColor:variant.variantColor }" >
+                        <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+                    </div>
+                    <ul>
+                        <li v-for="detail in sizes">{{ detail }}</li>
+                    </ul>
+                    
+                    <button class="add" v-on:click="addToCart">Add to cart</button>
+                    <button class="add" v-on:click="delFromCart">Del from cart</button>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+    </div>
+
+    <!-- Vue JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- My Script -->
+    <script src="js/scrypt.js"></script>
+</body>
+</html>
